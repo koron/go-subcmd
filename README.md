@@ -1,3 +1,3 @@
 # Subcmd
 
-subcmd is sub commands dispatcher.
+subcmd is very simple sub commands dispatcher.
