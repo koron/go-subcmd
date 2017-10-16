@@ -24,14 +24,13 @@ func (sc Subcmds) Run(args []string) error {
 
 // RunWithName parses args and executes one of sub-commands with name of
 // flag.FlagSet which passed to Main2 entry points.
-func (sc Subcmds) RunWithName(name string, args[]string) error {
+func (sc Subcmds) RunWithName(name string, args []string) error {
 	// nested subcmds is not so deep. it would be enough for 8.
-	nc := len(args)+1
+	nc := len(args) + 1
 	if nc > 8 {
 		nc = 8
 	}
 	cmds := make([]string, 0, len(args)+1)
-	// 
 	if name != "" {
 		cmds = append(cmds, name)
 	}
@@ -72,5 +71,10 @@ func (sc Subcmds) names() string {
 func (sc Subcmds) kickMain2(m Main2, cmds, args []string) error {
 	n := strings.Join(cmds, " ")
 	fs := flag.NewFlagSet(n, flag.ExitOnError)
-	return m(fs, args)
+	err := m(fs, args)
+	if err != nil {
+		fs.PrintDefaults()
+		return err
+	}
+	return nil
 }
