@@ -19,14 +19,14 @@ type Subcmds map[string]interface{}
 
 // Run parses args and executes one of sub-commands.
 func (sc Subcmds) Run(args []string) error {
-	return RunWithName("", args)
+	return sc.RunWithName("", args)
 }
 
 // RunWithName parses args and executes one of sub-commands with name of
 // flag.FlagSet which passed to Main2 entry points.
 func (sc Subcmds) RunWithName(name string, args[]string) error {
 	// nested subcmds is not so deep. it would be enough for 8.
-	nc = len(args)+1
+	nc := len(args)+1
 	if nc > 8 {
 		nc = 8
 	}
