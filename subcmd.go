@@ -52,7 +52,7 @@ func (sc Subcmds) run(cmds, args []string) error {
 	case Main:
 		return w(remains)
 	case Main2:
-		return sc.kickMain2(w, cmds, args)
+		return sc.kickMain2(w, cmds, remains)
 	case Subcmds:
 		return w.run(cmds, remains)
 	default:
