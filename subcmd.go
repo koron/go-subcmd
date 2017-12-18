@@ -70,14 +70,9 @@ func (sc Subcmds) names() string {
 
 func (sc Subcmds) kickMain2(m Main2, cmds, args []string) error {
 	n := strings.Join(cmds, " ")
-	fs := flag.NewFlagSet(n, flag.ContinueOnError)
+	fs := flag.NewFlagSet(n, flag.ExitOnError)
 	err := m(fs, args)
 	if err != nil {
-		if err2, ok := err.(Error); ok && err2.IsPrintDefaults() {
-			fmt.Println()
-			fs.PrintDefaults()
-			fmt.Println()
-		}
 		return err
 	}
 	return nil
