@@ -60,12 +60,17 @@ func (sc Subcmds) run(cmds, args []string) error {
 }
 
 func (sc Subcmds) names() string {
-	a := make([]string, 0, len(sc))
+	keys := make([]string, 0, len(sc))
 	for k := range sc {
-		a = append(a, k)
+		keys = append(keys, k)
 	}
-	sort.Strings(a)
-	return strings.Join(a, ", ")
+	sort.Strings(keys)
+	b := &strings.Builder{}
+	for _, k := range keys {
+		b.WriteString("\n  ")
+		b.WriteString(k)
+	}
+	return b.String()
 }
 
 func (sc Subcmds) kickMain2(m Main2, cmds, args []string) error {
